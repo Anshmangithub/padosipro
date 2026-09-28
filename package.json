@@ -1,0 +1,8 @@
+{
+  "name": "padosipro",
+  "private": true,
+  "description": "One-command dev launcher for the PadosiPro backend + Mailpit — see README",
+  "scripts": {
+    "dev": "node dev.js"
+  }
+}

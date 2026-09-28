@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  isVerified   Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  otp       OtpCode?
+  profile   Profile?
+  taskLinks UserTask[]
+
+  @@map("users")
+}
+
+model OtpCode {
+  id         String    @id @default(uuid())
+  userId     String    @unique
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  codeHash   String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  lastSentAt DateTime  @default(now())
+  createdAt  DateTime  @default(now())
+
+  @@map("otp_codes")
+}
+
+model Profile {
+  id           String   @id @default(uuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  mobileNumber String
+  address      String
+  businessName String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("profiles")
+}
+
+model Task {
+  id          String     @id @default(uuid())
+  name        String
+  category    String
+  description String
+  createdAt   DateTime   @default(now())
+
+  userLinks UserTask[]
+
+  @@unique([name, category])
+  @@map("tasks")
+}
+
+model UserTask {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, taskId])
+  @@map("user_tasks")
+}

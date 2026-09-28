@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "PadosiPro",
+    "slug": "padosipro",
+    "scheme": "padosipro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#5B5FEF",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.padosipro.assignment"
+    },
+    "android": {
+      "package": "com.padosipro.assignment",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-font",
+      "expo-splash-screen"
+    ]
+  }
+}
